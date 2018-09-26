@@ -4,7 +4,7 @@
 
 For Gatsby v2
 
-Integrate [mixpanel](https://www.mixpanel.com) (with [react-mixpanel](https://github.com/neciu/react-mixpanel)) on your [gatsby](https://github.com/gatsbyjs/gatsby) project
+Integrate [mixpanel](https://www.mixpanel.com) on your [gatsby](https://github.com/gatsbyjs/gatsby) project
 
 ## Install
 
@@ -25,25 +25,33 @@ plugins: [
 ];
 ```
 
-You can access to mixpanel in the context of your components :
+You can access to mixpanel library in the props of your component by using the function ```addMixpanel``` available in the plugin
 
 ```javascript
-class HelloWorld extends React.Component {
-    componentDidMount() {
-        this.context.mixpanel.track('Hello'); // send event 'Hello' to mixpanel
-    }
+import { addMixpanel } from 'gatsby-plugin-mixpanel'
 
-    render() {
-        return (
-            <h1>Hello !</h1>
-        );
+class HelloWorld extends Component {
+    componentDidMount() {
+        const { mixpanel } = this.props
+        mixpanel.track('Hello'); // send event 'Hello' to mixpanel
     }
+    render() {/*...*/}
 }
 
-HelloWorld.contextTypes = { // mixpanel must be declared on contextTypes 
-    mixpanel: PropTypes.object.isRequired
-};
+export default addMixpanel()(HelloWorld)
+
+// or with decorators
+@addMixpanel()
+class HelloWorld extends Component {
+    componentDidMount() {
+        const { mixpanel } = this.props
+        mixpanel.track('Hello'); // send event 'Hello' to mixpanel
+    }
+    render() {/*...*/}
+}
 ```
+
+This plugin performs ```mixpanel.init(YOUR_TOKEN)``` automatically
 
 ### Configuration
 
@@ -74,7 +82,7 @@ plugins: [
     options: {
       apiToken: 'YOUR_MIXPANEL_API_TOKEN',
       pageViews: {
-        '/blog': 'Page blog view', // an event 'Page blog view' will be send to mixpanel a every vist on the /blog page
+        '/blog': 'Page blog view', // an event 'Page blog view' will be send to mixpanel on every visit on the /blog page
         '/404': 'Page 404 view',
       }
     },
