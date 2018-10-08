@@ -51,7 +51,7 @@ class HelloWorld extends Component {
 }
 ```
 
-This plugin performs ```mixpanel.init(YOUR_TOKEN)``` automatically
+This plugin performs ```mixpanel.init(YOUR_MIXPANEL_API_TOKEN)``` automatically
 
 ### Configuration
 

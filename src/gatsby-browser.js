@@ -26,6 +26,19 @@ exports.onRouteUpdate = ({ location }, pluginOptions) => {
   }
 }
 
+exports.onClientEntry = (skip, pluginOptions) => {
+  const options = getOptions(pluginOptions)
+
+  if (!options.isEnable) {
+    mixpanel.init('disable', { autotrack: false })
+    mixpanel.disable()
+    return
+  }
+
+  mixpanel.init(options.apiToken, { debug: options.debug })
+  console.log('ini')
+}
+
 exports.wrapRootElement = ({ element }, pluginOptions) => (
   <MixpanelProvider options={getOptions(pluginOptions)}>
     {element}
