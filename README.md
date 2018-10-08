@@ -28,7 +28,7 @@ plugins: [
 You can access to mixpanel library in the props of your component by using the function ```addMixpanel``` available in the plugin
 
 ```javascript
-import { addMixpanel } from 'gatsby-plugin-mixpanel'
+import { withMixpanel } from 'gatsby-plugin-mixpanel'
 
 class HelloWorld extends Component {
     componentDidMount() {
@@ -38,10 +38,10 @@ class HelloWorld extends Component {
     render() {/*...*/}
 }
 
-export default addMixpanel()(HelloWorld)
+export default withMixpanel()(HelloWorld)
 
 // or with decorators
-@addMixpanel()
+@withMixpanel()
 class HelloWorld extends Component {
     componentDidMount() {
         const { mixpanel } = this.props

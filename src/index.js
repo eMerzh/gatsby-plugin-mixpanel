@@ -37,4 +37,10 @@ export const addMixpanel = () => WrappedComponent => {
   }
 }
 
+export const withMixpanel = Component => props => (
+  <MixpanelContext.Consumer>
+    {mixpanel => <Component {...props} mixpanel={mixpanel} />}
+  </MixpanelContext.Consumer>
+)
+
 export { mixpanel }
