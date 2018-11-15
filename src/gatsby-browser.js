@@ -39,8 +39,6 @@ exports.onClientEntry = (skip, pluginOptions) => {
   console.log('ini')
 }
 
-exports.wrapRootElement = ({ element }, pluginOptions) => (
-  <MixpanelProvider options={getOptions(pluginOptions)}>
-    {element}
-  </MixpanelProvider>
+exports.wrapRootElement = ({ element }) => (
+  <MixpanelProvider>{element}</MixpanelProvider>
 )

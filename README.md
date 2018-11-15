@@ -12,6 +12,8 @@ Integrate [mixpanel](https://www.mixpanel.com) on your [gatsby](https://github.c
 
 ## How to use
 
+### Declare plugin
+
 Add the plugin in your gatsby-config.js and set your mixpanel api token
 
 ```javascript
@@ -25,7 +27,9 @@ plugins: [
 ];
 ```
 
-You can access to mixpanel library in the props of your component by using the function ```addMixpanel``` available in the plugin
+### Using mixpanel by passing props
+
+You can access to mixpanel library in the props of your component by using the function ```withMixpanel``` available in the plugin
 
 ```javascript
 import { withMixpanel } from 'gatsby-plugin-mixpanel'
@@ -43,15 +47,30 @@ export default withMixpanel()(HelloWorld)
 // or with decorators
 @withMixpanel()
 class HelloWorld extends Component {
-    componentDidMount() {
-        const { mixpanel } = this.props
-        mixpanel.track('Hello'); // send event 'Hello' to mixpanel
-    }
-    render() {/*...*/}
+    /*...*/
 }
 ```
 
-This plugin performs ```mixpanel.init(YOUR_MIXPANEL_API_TOKEN)``` automatically
+### Using mixpanel with react-hooks
+
+**Your project must have a version of react that supports react-hooks.**
+
+Import the ```useMixpanel``` hook.
+
+```javascript
+import { useMixpanel } from 'gatsby-plugin-mixpanel'
+
+const HelloWorld = () => {
+  const mixpanel = useMixpanel()
+  mixpanel.track('Hello');
+  return (
+    <div>
+      <button onClick={() => mixpanel.track('Hello button') }>Hello</button>
+    </div>
+  )
+}
+
+```
 
 ### Configuration
 
