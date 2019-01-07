@@ -14,7 +14,7 @@
   "readme": "README.md",
   "keywords": [
     "gatsby",
-    "gatsbyjs",
+    "gatsby-plugin",
     "plugin",
     "mixpanel",
     "analytics"
@@ -23,14 +23,22 @@
   "main": "index.js",
   "devDependencies": {
     "@babel/cli": "^7.1.2",
-    "@babel/core": "^7.1.2",
+    "@babel/core": "^7.2.0",
+    "@babel/plugin-proposal-decorators": "^7.2.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/plugin-transform-object-assign": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge",
+    "babel-jest": "^23.6.0",
     "cross-env": "^5.2.0",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
+    "enzyme-to-json": "^3.3.5",
+    "jest": "^23.6.0",
     "prettier": "^1.14.3",
-    "react": "^16.7.0-alpha.0"
+    "react": "^16.7.0-alpha.0",
+    "react-dom": "16"
   },
   "dependencies": {
     "mixpanel-browser": "^2.23.0"
@@ -39,11 +47,17 @@
     "build": "babel src --out-dir . --ignore __tests__",
     "watch": "babel -w src --out-dir . --ignore __tests__",
     "prepublish": "cross-env NODE_ENV=production npm run build",
-    "pretty": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
-    "deps": "yarn upgrade-interactive --latest"
+    "pretty": "prettier --trailing-comma es5 --no-semi --single-quote --write '{src,__tests__}/**/*.js'",
+    "deps": "yarn upgrade-interactive --latest",
+    "test": "jest __tests__/"
   },
   "peerDependencies": {
+    "gatsby": ">2.0.0-alpha",
     "react": "^16.7.0-alpha.0",
     "react-dom": "^16.7.0-alpha.0"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/setupTests.js",
+    "snapshotSerializers": ["enzyme-to-json/serializer"]
   }
 }
